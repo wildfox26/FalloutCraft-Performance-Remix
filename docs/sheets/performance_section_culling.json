@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "system": "fallout_section_rendering",
+  "columns": ["id", "cpu_path", "change", "math", "safety", "verification"],
+  "rows": [
+    {
+      "id": "section_frustum_cull",
+      "cpu_path": "FO4_ModFiles/fo_blocks.cpp::Render",
+      "change": "Reject Minecraft section AABBs outside Fallout's clip frustum before shadow-buffer updates and draw calls.",
+      "math": "Homogeneous clip-plane AABB test using FrameConstants.viewProj.",
+      "safety": "Conservative rejection only; sections intersecting any clip plane remain eligible.",
+      "verification": "Build the F4SE plugin; compare FPS and cull counts in the running game."
+    },
+    {
+      "id": "shadow_update_visibility_gate",
+      "cpu_path": "FO4_ModFiles/fo_blocks.cpp::Render",
+      "change": "Skip per-section shadow-stream refreshes for sections outside the current clip frustum.",
+      "math": "Reuse the same conservative section visibility result.",
+      "safety": "Off-screen sections refresh when they become visible.",
+      "verification": "Rotate back to previously off-screen sections and verify lighting/shadows."
+    }
+  ]
+}
